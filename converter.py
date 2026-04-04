@@ -643,3 +643,93 @@ vars_force = build_standard_tab(
     conversion_type="linear"
 )
 all_tab_vars.append(vars_force)
+
+# MENU BAR
+menubar = tk.Menu(root)
+root.config(menu=menubar)
+ 
+# File menu
+file_menu = tk.Menu(menubar, tearoff=False)
+file_menu.add_command(label="Clear All  (Ctrl+L)",
+                       command=clear_all_tabs)
+file_menu.add_separator()
+file_menu.add_command(label="Exit  (Ctrl+Q)",
+                       command=root.quit)
+menubar.add_cascade(label="File", menu=file_menu)
+ 
+# Keyboard shortcuts
+root.bind("<Control-l>", lambda event: clear_all_tabs())
+root.bind("<Control-q>", lambda event: root.quit())
+ 
+# Settings menu — precision submenu
+settings_menu = tk.Menu(menubar, tearoff=False)
+precision_menu = tk.Menu(settings_menu, tearoff=False)
+for i in range(11):
+    label = f"{i} decimal place{'s' if i != 1 else ''}"
+    precision_menu.add_radiobutton(label=label,
+                                    variable=precision_var, value=i)
+settings_menu.add_cascade(label="Decimal Precision", menu=precision_menu)
+menubar.add_cascade(label="Settings", menu=settings_menu)
+ 
+# Help menu
+help_menu = tk.Menu(menubar, tearoff=False)
+ 
+def show_help():
+    """Opens a popup window with instructions."""
+    win = tk.Toplevel(root)
+    win.title("How to Use")
+    win.geometry("420x380")
+    win.configure(bg=COLOUR_BG)
+    win.resizable(False, False)
+ 
+    tk.Label(win, text="📖  How to Use",
+             font=FONT_TITLE, fg=COLOUR_LIGHT_TXT,
+             bg=COLOUR_DARK, padx=20, pady=12).pack(fill=tk.X)
+ 
+    help_text = (
+        "1.  Click a tab at the top (Speed, Temp, Length…)\n\n"
+        "2.  Choose the unit you're converting FROM\n"
+        "    using the first dropdown menu.\n\n"
+        "3.  Type your number in the Value box.\n"
+        "    The result updates automatically as you type!\n\n"
+        "4.  Choose the unit you're converting TO\n"
+        "    using the second dropdown.\n\n"
+        "5.  Click Swap to reverse the direction.\n\n"
+        "TOOLBAR:\n"
+        "  • Decimal places — controls how many decimals to show.\n"
+        "  • 🗑 Clear All   — resets every tab at once.\n\n"
+        "KEYBOARD:\n"
+        "  • Enter   — trigger conversion.\n"
+        "  • Ctrl+L  — clear all tabs.\n"
+        "  • Ctrl+Q  — quit the app.\n"
+    )
+ 
+    text_box = tk.Text(win, font=FONT_NORMAL, bg=COLOUR_BG,
+                        relief=tk.FLAT, padx=20, pady=14,
+                        wrap=tk.WORD)
+    text_box.pack(fill=tk.BOTH, expand=True)
+    text_box.insert(tk.END, help_text)
+    text_box.config(state=tk.DISABLED)   # make it read-only
+ 
+    tk.Button(win, text="Close", command=win.destroy,
+               font=FONT_LABEL, bg=COLOUR_BTN_BLUE, fg="white",
+               relief=tk.FLAT, padx=14, pady=6,
+               cursor="hand2").pack(pady=10)
+ 
+def show_about():
+    """Opens a simple About popup."""
+    import tkinter.messagebox as mb
+    mb.showinfo(
+        "About",
+        "Universal Unit Converter  v1.0\n\n"
+        "9 conversion categories:\n"
+        "Speed • Temperature • Length\n"
+        "Weight • Volume • Area\n"
+        "Fuel Economy • Angle • Force\n\n"
+        "Built with Python 3 and Tkinter."
+    )
+ 
+help_menu.add_command(label="How to Use", command=show_help)
+help_menu.add_separator()
+help_menu.add_command(label="About",      command=show_about)
+menubar.add_cascade(label="Help", menu=help_menu)
