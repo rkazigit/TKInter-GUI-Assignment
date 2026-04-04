@@ -470,3 +470,55 @@ root.title("Universal Unit Converter")
 root.geometry("600x680")
 root.minsize(500, 560)
 root.configure(bg="#D5D8DC")
+precision_var = tk.IntVar(value=4)
+style = ttk.Style()
+style.theme_use("clam") #clam is just for more colors
+style.configure("TNotebook",
+                background=COLOUR_DARK)
+style.configure("TNotebook.Tab",
+                background="#2C3E50",
+                foreground="#BDC3C7",
+                padding=[9, 5],
+                font=("Segoe UI", 8, "bold"))
+style.map("TNotebook.Tab",
+          background=[("selected", "#2980B9"), ("active", "#1A6FA3")],
+          foreground=[("selected", "white"),   ("active", "white")])
+
+#toolbar
+toolbar = tk.Frame(root, bg="#ECF0F1", pady=6)
+toolbar.pack(fill=tk.X)
+ 
+tk.Label(toolbar, text="Decimal places:",
+         font=("Segoe UI", 9), bg="#ECF0F1",
+         fg="#2C3E50").pack(side=tk.LEFT, padx=(14, 4))
+
+#i wanted a spinbox
+precision_spinbox = ttk.Spinbox(toolbar, from_=0, to=10, width=4,
+                                 textvariable=precision_var,
+                                 font=("Segoe UI", 10))
+precision_spinbox.pack(side=tk.LEFT)
+
+# divider line
+tk.Frame(toolbar, width=1, bg="#BDC3C7").pack(
+    side=tk.LEFT, fill=tk.Y, padx=12, pady=2)
+ 
+# clear all button
+def clear_all_tabs():
+    """Resets every tab's input and result back to blank."""
+    for input_v, result_v, error_v in all_tab_vars:
+        input_v.set("")
+        result_v.set("—")
+        error_v.set("")
+ 
+clear_btn = tk.Button(toolbar, text="🗑  Clear All",
+                       font=("Segoe UI", 9, "bold"),
+                       bg="#E74C3C", fg="white",
+                       activebackground="#C0392B",
+                       relief=tk.FLAT, padx=10, pady=2,
+                       cursor="hand2", command=clear_all_tabs)
+clear_btn.pack(side=tk.LEFT)
+add_hover_effect(clear_btn, "#E74C3C", "#C0392B")
+
+notebook = ttk.Notebook(root)
+notebook.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
+
