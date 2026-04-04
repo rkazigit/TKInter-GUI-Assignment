@@ -315,3 +315,80 @@ def build_standard_tab(notebook, tab_label, title_text,
     _frame, body = build_tab_frame(notebook, tab_label,
                                    title_text, icon_colour, icon_symbol)
     
+    
+    from_unit_var = tk.StringVar(value=unit_list[0])
+    to_unit_var   = tk.StringVar(value=unit_list[min(1, len(unit_list)-1)])
+    input_var     = tk.StringVar()
+    result_var    = tk.StringVar(value="—")
+    error_var     = tk.StringVar(value="")
+ 
+    # run the conversion and update the display
+    def do_convert(*args):
+        """Called whenever the user types, changes a dropdown, or clicks Convert."""
+        raw_input = input_var.get().strip()
+ 
+        # Case 1: input box is empty — just reset quietly
+        if raw_input == "":
+            result_var.set("—")
+            result_label.config(fg=COLOUR_RESULT_TXT)
+            error_var.set("")
+            return
+ 
+        # Case 2: input is not a number — show a friendly error
+        try:
+            value = float(raw_input)
+        except ValueError:
+            error_var.set("⚠  Please enter a number  (e.g. 42, -7.5, 3.14)")
+            result_var.set("—")
+            result_label.config(fg=COLOUR_ERROR)
+            return
+ 
+        # Case 3: run the conversion
+        try:
+            if conversion_type == "linear":
+                result = convert_linear(value, from_unit_var.get(),
+                                        to_unit_var.get(), unit_table_or_fn)
+            elif conversion_type == "temperature":
+                result = convert_temperature(value, from_unit_var.get(),
+                                             to_unit_var.get())
+            elif conversion_type == "fuel":
+                result = convert_fuel(value, from_unit_var.get(),
+                                      to_unit_var.get())
+            elif conversion_type == "angle":
+                result = convert_angle(value, from_unit_var.get(),
+                                       to_unit_var.get())
+ 
+        except ValueError as e:
+            # conversion functions raise ValueError for things like 0 mpg
+            error_var.set(f"⚠  {e}")
+            result_var.set("—")
+            result_label.config(fg=COLOUR_ERROR)
+            return
+ 
+        # Conversion succeeded — format and display the result
+        error_var.set("")    # clear any old error message
+        decimals = precision_var.get()
+        formatted = format_result(result, decimals)
+        result_var.set(f"{formatted}  {to_unit_var.get()}")
+        result_label.config(fg=COLOUR_RESULT_TXT)
+ 
+    # swap the two units
+    def swap_units():
+        a = from_unit_var.get()
+        b = to_unit_var.get()
+        from_unit_var.set(b)
+        to_unit_var.set(a)
+        do_convert()
+ 
+    # button
+    def make_button(parent, text, bg_colour, hover_colour, command):
+        btn = tk.Button(parent, text=text,
+                        font=FONT_LABEL,
+                        bg=bg_colour, fg="white",
+                        activebackground=hover_colour,
+                        activeforeground="white",
+                        relief=tk.FLAT, padx=14, pady=6,
+                        cursor="hand2", command=command)
+        add_hover_effect(btn, bg_colour, hover_colour)
+        return btn
+    
