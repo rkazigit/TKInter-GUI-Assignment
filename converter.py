@@ -527,7 +527,7 @@ notebook.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
  
 all_tab_vars = []
 
-# Speed tab
+# speed tab
 vars_speed = build_standard_tab(
     notebook,
     tab_label="⚡ Speed",
@@ -540,7 +540,7 @@ vars_speed = build_standard_tab(
 )
 all_tab_vars.append(vars_speed)
  
-# Temperature tab
+# temp tab
 vars_temp = build_standard_tab(
     notebook,
     tab_label="🌡 Temp",
@@ -553,7 +553,7 @@ vars_temp = build_standard_tab(
 )
 all_tab_vars.append(vars_temp)
  
-# Length tab
+# length tab
 vars_length = build_standard_tab(
     notebook,
     tab_label="📏 Length",
@@ -566,7 +566,7 @@ vars_length = build_standard_tab(
 )
 all_tab_vars.append(vars_length)
  
-# Weight / Mass tab
+# weight / mass tab
 vars_mass = build_standard_tab(
     notebook,
     tab_label="⚖ Weight",
@@ -579,7 +579,7 @@ vars_mass = build_standard_tab(
 )
 all_tab_vars.append(vars_mass)
  
-# Volume tab
+# volume tab
 vars_volume = build_standard_tab(
     notebook,
     tab_label="🧪 Volume",
@@ -592,7 +592,7 @@ vars_volume = build_standard_tab(
 )
 all_tab_vars.append(vars_volume)
  
-# Area tab
+# area tab
 vars_area = build_standard_tab(
     notebook,
     tab_label="▦ Area",
@@ -605,7 +605,7 @@ vars_area = build_standard_tab(
 )
 all_tab_vars.append(vars_area)
  
-# Fuel Economy tab
+# fuel econ tab
 vars_fuel = build_standard_tab(
     notebook,
     tab_label="⛽ Fuel",
@@ -618,7 +618,7 @@ vars_fuel = build_standard_tab(
 )
 all_tab_vars.append(vars_fuel)
  
-# Angle tab
+# angle tab
 vars_angle = build_standard_tab(
     notebook,
     tab_label="∠ Angle",
@@ -631,7 +631,7 @@ vars_angle = build_standard_tab(
 )
 all_tab_vars.append(vars_angle)
  
-# Force tab
+# force tab
 vars_force = build_standard_tab(
     notebook,
     tab_label="↗ Force",
@@ -644,11 +644,11 @@ vars_force = build_standard_tab(
 )
 all_tab_vars.append(vars_force)
 
-# MENU BAR
+# menu bar
 menubar = tk.Menu(root)
 root.config(menu=menubar)
  
-# File menu
+# file menu
 file_menu = tk.Menu(menubar, tearoff=False)
 file_menu.add_command(label="Clear All  (Ctrl+L)",
                        command=clear_all_tabs)
@@ -657,11 +657,11 @@ file_menu.add_command(label="Exit  (Ctrl+Q)",
                        command=root.quit)
 menubar.add_cascade(label="File", menu=file_menu)
  
-# Keyboard shortcuts
+# keyboard shortcuts
 root.bind("<Control-l>", lambda event: clear_all_tabs())
 root.bind("<Control-q>", lambda event: root.quit())
  
-# Settings menu — precision submenu
+# settings menu 
 settings_menu = tk.Menu(menubar, tearoff=False)
 precision_menu = tk.Menu(settings_menu, tearoff=False)
 for i in range(11):
@@ -671,7 +671,7 @@ for i in range(11):
 settings_menu.add_cascade(label="Decimal Precision", menu=precision_menu)
 menubar.add_cascade(label="Settings", menu=settings_menu)
  
-# Help menu
+# help menu
 help_menu = tk.Menu(menubar, tearoff=False)
  
 def show_help():
@@ -733,3 +733,28 @@ help_menu.add_command(label="How to Use", command=show_help)
 help_menu.add_separator()
 help_menu.add_command(label="About",      command=show_about)
 menubar.add_cascade(label="Help", menu=help_menu)
+
+# status bar
+status_var = tk.StringVar(value="  Ready — select a tab and enter a value")
+tk.Label(root, textvariable=status_var,
+         font=("Segoe UI", 8), bg=COLOUR_DARK,
+         fg="#808B96", anchor="w", padx=12, pady=4).pack(
+    fill=tk.X, side=tk.BOTTOM)
+ 
+# update status bar when the user switches tabs
+TAB_NAMES = ["Speed", "Temperature", "Length", "Weight",
+             "Volume", "Area", "Fuel Economy", "Angle", "Force"]
+ 
+def on_tab_change(event):
+    try:
+        index = notebook.index(notebook.select())
+        status_var.set(
+            f"  {TAB_NAMES[index]} Converter "
+            f"— type a value and press Enter or click Convert")
+    except Exception:
+        pass
+ 
+notebook.bind("<<NotebookTabChanged>>", on_tab_change)
+ 
+# now to actually start the program
+root.mainloop()
