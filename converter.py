@@ -99,3 +99,12 @@ class ConversionEngine:
         "poundal":      0.138255,
         "ton-force (US)": 8896.44,
     }
+
+# Fuel Economy — special: L/100km is inverse-proportional to mpg
+    FUEL_UNITS = ["L/100km", "mpg (US)", "mpg (UK)", "km/L"]
+ 
+    # Temperature units
+    TEMP_UNITS = ["°C", "°F", "K", "°R"]
+ 
+    # Angle units
+    ANGLE_UNITS = ["degrees", "radians", "gradians", "turns"]
