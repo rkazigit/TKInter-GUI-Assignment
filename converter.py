@@ -207,3 +207,60 @@ def format_result(number, decimal_places):
  
     # or just use regular decimal notation with commas
     return f"{number:,.{decimal_places}f}"      # 1,234.5678
+
+def make_icon(bg_colour, symbol_text):
+    """
+    Creates a small 44×44 coloured square icon using Pillow.
+    If Pillow isn't installed, returns None (no icon shown).
+    """
+    if not PILLOW_AVAILABLE:
+        return None
+ 
+    size = 44
+    img  = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+ 
+   
+    draw.rounded_rectangle([1, 1, size - 1, size - 1],
+                            radius=6, fill=bg_colour)
+ 
+  
+    try:
+        from PIL import ImageFont
+        font_paths = [
+            "arialbd.ttf",                                             # Windows
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",    # Linux
+            "/System/Library/Fonts/Helvetica.ttc",                     # macOS
+        ]
+        font = None
+        for path in font_paths:
+            try:
+                font = ImageFont.truetype(path, 13)
+                break
+            except Exception:
+                continue
+ 
+        if font:
+            bbox = draw.textbbox((0, 0), symbol_text, font=font)
+            text_w = bbox[2] - bbox[0]
+            text_h = bbox[3] - bbox[1]
+            x = (size - text_w) // 2
+            y = (size - text_h) // 2
+            draw.text((x, y), symbol_text, fill="white", font=font)
+    except Exception:
+        pass  # if anything goes wrong with text, just skip it
+ 
+    return ImageTk.PhotoImage(img)
+ 
+ 
+def add_hover_effect(button, normal_colour, hover_colour):
+    """
+    Makes a button change colour when the mouse moves over it.
+    We bind two mouse events:
+      <Enter> = mouse enters the button area  → change to hover colour
+      <Leave> = mouse leaves the button area  → change back to normal
+    """
+    button.bind("<Enter>", lambda event: button.config(bg=hover_colour))
+    button.bind("<Leave>", lambda event: button.config(bg=normal_colour))
+
+    
