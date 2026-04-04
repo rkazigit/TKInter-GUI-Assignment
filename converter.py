@@ -285,7 +285,7 @@ def build_tab_frame(notebook, tab_label, title_text, icon_colour, icon_symbol):
     frame = ttk.Frame(notebook)             # the container for this whole tab
     notebook.add(frame, text=tab_label)     # register it as a tab
  
-    # ---- Title bar (dark strip at the top) ----
+    # Title bar 
     title_bar = tk.Frame(frame, bg=COLOUR_DARK, pady=10)
     title_bar.pack(fill=tk.X)
  
@@ -293,10 +293,25 @@ def build_tab_frame(notebook, tab_label, title_text, icon_colour, icon_symbol):
     icon = make_icon(icon_colour, icon_symbol)
     if icon:
         icon_label = tk.Label(title_bar, image=icon, bg=COLOUR_DARK, padx=10)
-        icon_label.image = icon    # IMPORTANT: must keep a reference or image disappears!
+        icon_label.image = icon    
         icon_label.pack(side=tk.LEFT)
  
     tk.Label(title_bar, text=title_text,
              font=FONT_TITLE, fg=COLOUR_LIGHT_TXT,
              bg=COLOUR_DARK).pack(side=tk.LEFT)
  
+  # Body
+    body = tk.Frame(frame, bg=COLOUR_BG, padx=30, pady=20)
+    body.pack(fill=tk.BOTH, expand=True)
+ 
+    return frame, body
+ 
+ 
+def build_standard_tab(notebook, tab_label, title_text,
+                        icon_colour, icon_symbol,
+                        unit_list, unit_table_or_fn,
+                        conversion_type="linear"):
+    
+    _frame, body = build_tab_frame(notebook, tab_label,
+                                   title_text, icon_colour, icon_symbol)
+    
