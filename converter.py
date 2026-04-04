@@ -276,3 +276,27 @@ FONT_TITLE        = ("Segoe UI", 13, "bold")
 FONT_LABEL        = ("Segoe UI", 10, "bold")
 FONT_NORMAL       = ("Segoe UI", 10)
 FONT_RESULT       = ("Consolas", 20, "bold")    
+
+def build_tab_frame(notebook, tab_label, title_text, icon_colour, icon_symbol):
+    """
+    Creates the outer frame and title bar that every tab shares.
+    Returns (frame, body_frame) so the caller can add more widgets.
+    """
+    frame = ttk.Frame(notebook)             # the container for this whole tab
+    notebook.add(frame, text=tab_label)     # register it as a tab
+ 
+    # ---- Title bar (dark strip at the top) ----
+    title_bar = tk.Frame(frame, bg=COLOUR_DARK, pady=10)
+    title_bar.pack(fill=tk.X)
+ 
+    # Icon on the left of the title bar
+    icon = make_icon(icon_colour, icon_symbol)
+    if icon:
+        icon_label = tk.Label(title_bar, image=icon, bg=COLOUR_DARK, padx=10)
+        icon_label.image = icon    # IMPORTANT: must keep a reference or image disappears!
+        icon_label.pack(side=tk.LEFT)
+ 
+    tk.Label(title_bar, text=title_text,
+             font=FONT_TITLE, fg=COLOUR_LIGHT_TXT,
+             bg=COLOUR_DARK).pack(side=tk.LEFT)
+ 
