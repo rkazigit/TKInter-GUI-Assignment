@@ -84,3 +84,126 @@ FUEL_UNITS = ["L/100km", "mpg (US)", "mpg (UK)", "km/L"]
  
 ANGLE_UNITS = ["degrees", "radians", "gradians", "turns"]
 
+def convert_linear(value, from_unit, to_unit, unit_table):
+    """
+    Converts between any two units that are in the same factor table.
+    Works for speed, length, mass, volume, area, force.
+ 
+    Formula:  result = value × factor_from ÷ factor_to
+    """
+    base_value = value * unit_table[from_unit]   # convert to base unit first
+    result     = base_value / unit_table[to_unit] # then convert to target unit
+    return result
+ 
+ 
+def convert_temperature(value, from_unit, to_unit):
+    """
+    Temperature needs special handling because it uses addition/subtraction,
+    not just multiplication.
+    Strategy: first convert anything to Celsius, then convert Celsius to the target.
+    """
+ 
+    # convert TO Celsius
+    if from_unit == "°C (Celsius)":
+        celsius = value
+    elif from_unit == "°F (Fahrenheit)":
+        celsius = (value - 32) * 5 / 9
+    elif from_unit == "K (Kelvin)":
+        if value < 0:
+            raise ValueError("Kelvin cannot be negative (0 K = absolute zero)")
+        celsius = value - 273.15
+ 
+    # convert FROM Celsius to the target unit
+    if to_unit == "°C (Celsius)":
+        result = celsius
+    elif to_unit == "°F (Fahrenheit)":
+        result = celsius * 9 / 5 + 32
+    elif to_unit == "K (Kelvin)":
+        result = celsius + 273.15
+        if result < 0:
+            raise ValueError("Result would be below absolute zero (0 K)")
+ 
+    return result
+ 
+ 
+def convert_fuel(value, from_unit, to_unit):
+    """
+    Fuel economy is tricky because L/100km and mpg are INVERSELY related.
+    (Lower L/100km means MORE efficient; Higher mpg means MORE efficient.)
+    Strategy: convert everything to L/100km first, then to the target.
+    """
+    US_FACTOR = 235.215   # 235.215 ÷ mpg(US) = L/100km
+    UK_FACTOR = 282.481   # 282.481 ÷ mpg(UK) = L/100km
+ 
+    #  convert to L/100km
+    if from_unit == "L/100km":
+        l100 = value
+    elif from_unit == "mpg (US)":
+        if value <= 0:
+            raise ValueError("mpg must be greater than 0")
+        l100 = US_FACTOR / value
+    elif from_unit == "mpg (UK)":
+        if value <= 0:
+            raise ValueError("mpg must be greater than 0")
+        l100 = UK_FACTOR / value
+    elif from_unit == "km/L":
+        if value <= 0:
+            raise ValueError("km/L must be greater than 0")
+        l100 = 100 / value
+ 
+    #  convert from L/100km to target
+    if to_unit == "L/100km":
+        return l100
+    elif to_unit == "mpg (US)":
+        if l100 <= 0:
+            raise ValueError("L/100km must be greater than 0")
+        return US_FACTOR / l100
+    elif to_unit == "mpg (UK)":
+        if l100 <= 0:
+            raise ValueError("L/100km must be greater than 0")
+        return UK_FACTOR / l100
+    elif to_unit == "km/L":
+        if l100 <= 0:
+            raise ValueError("L/100km must be greater than 0")
+        return 100 / l100
+ 
+ 
+def convert_angle(value, from_unit, to_unit):
+    """
+    Angle conversion — uses degrees as the go-between.
+    400 gradians = 360 degrees = 2π radians = 1 full turn
+    """
+ 
+    # to degrees
+    if from_unit == "degrees":
+        deg = value
+    elif from_unit == "radians":
+        deg = math.degrees(value)       #  built-in radians→degrees
+    elif from_unit == "gradians":
+        deg = value * 0.9               # 400 grad = 360 deg  →  1 grad = 0.9 deg
+    elif from_unit == "turns":
+        deg = value * 360
+ 
+    # from degrees to target
+    if to_unit == "degrees":
+        return deg
+    elif to_unit == "radians":
+        return math.radians(deg)         # built-in degrees→radians
+    elif to_unit == "gradians":
+        return deg / 0.9
+        return deg / 360
+ 
+ 
+def format_result(number, decimal_places):
+    """
+    Turns a float into a nicely formatted string.
+    Uses scientific notation for very big or very tiny numbers.
+    """
+    abs_val = abs(number)
+ 
+    # Use scientific notation if the number is huge or tiny
+    if abs_val != 0 and (abs_val >= 1e12 or abs_val < 0.000001):
+        return f"{number:.{decimal_places}e}"   # now this will print things like 1.23e+12 or 4.56e-7
+ 
+    # or just use regular decimal notation with commas
+    return f"{number:,.{decimal_places}f}"      # 1,234.5678
