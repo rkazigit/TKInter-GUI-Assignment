@@ -191,6 +191,7 @@ def convert_angle(value, from_unit, to_unit):
         return math.radians(deg)         # built-in degrees→radians
     elif to_unit == "gradians":
         return deg / 0.9
+    elif to_unit == "turns":
         return deg / 360
  
  
