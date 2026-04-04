@@ -392,3 +392,73 @@ def build_standard_tab(notebook, tab_label, title_text,
         add_hover_effect(btn, bg_colour, hover_colour)
         return btn
     
+    # FROM unit dropdown
+    tk.Label(body, text="From unit:", font=FONT_LABEL,
+             fg="#2C3E50", bg=COLOUR_BG).grid(row=0, column=0,
+                                              sticky="w", pady=6)
+    from_combo = ttk.Combobox(body, textvariable=from_unit_var,
+                               values=unit_list, state="readonly",
+                               font=FONT_NORMAL, width=22)
+    from_combo.grid(row=0, column=1, sticky="ew", padx=(10, 0), pady=6)
+    from_combo.bind("<<ComboboxSelected>>", do_convert)   # convert on change
+ 
+    # VALUE entry
+    tk.Label(body, text="Value:", font=FONT_LABEL,
+             fg="#2C3E50", bg=COLOUR_BG).grid(row=1, column=0,
+                                              sticky="w", pady=6)
+    entry = ttk.Entry(body, textvariable=input_var,
+                      font=("Consolas", 13), width=22)
+    entry.grid(row=1, column=1, sticky="ew", padx=(10, 0), pady=6)
+    entry.bind("<KeyRelease>", do_convert)    # convert on every keystroke
+    entry.bind("<Return>",     do_convert)    # also convert when Enter is pressed
+ 
+    # TO unit dropdown
+    tk.Label(body, text="To unit:", font=FONT_LABEL,
+             fg="#2C3E50", bg=COLOUR_BG).grid(row=2, column=0,
+                                              sticky="w", pady=6)
+    to_combo = ttk.Combobox(body, textvariable=to_unit_var,
+                             values=unit_list, state="readonly",
+                             font=FONT_NORMAL, width=22)
+    to_combo.grid(row=2, column=1, sticky="ew", padx=(10, 0), pady=6)
+    to_combo.bind("<<ComboboxSelected>>", do_convert)
+ 
+    # RESULT display
+    result_panel = tk.Frame(body, bg=COLOUR_RESULT_BG, padx=14, pady=12)
+    result_panel.grid(row=3, column=0, columnspan=2,
+                      sticky="ew", pady=(16, 8))
+ 
+    tk.Label(result_panel, text="Result",
+             font=("Segoe UI", 8), fg="#808B96",
+             bg=COLOUR_RESULT_BG).pack(anchor="w")
+ 
+    result_label = tk.Label(result_panel, textvariable=result_var,
+                             font=FONT_RESULT, fg=COLOUR_RESULT_TXT,
+                             bg=COLOUR_RESULT_BG, wraplength=360,
+                             justify="left")
+    result_label.pack(anchor="w")
+ 
+    # CONVERT button
+    convert_btn = make_button(body, "  Convert  ",
+                               COLOUR_BTN_GREEN, "#145A32", do_convert)
+    convert_btn.grid(row=4, column=0, sticky="ew", pady=(4, 0),
+                     padx=(0, 4))
+ 
+    # SWAP button
+    swap_btn = make_button(body, "⇅  Swap",
+                            COLOUR_BTN_BLUE, "#154360", swap_units)
+    swap_btn.grid(row=4, column=1, sticky="ew", pady=(4, 0),
+                  padx=(4, 0))
+ 
+    # ERROR message label
+    # this is probably gonna be invisible most of the time
+    tk.Label(body, textvariable=error_var,
+             font=("Segoe UI", 9), fg=COLOUR_ERROR,
+             bg=COLOUR_BG, wraplength=380,
+             justify="left").grid(row=5, column=0, columnspan=2,
+                                  sticky="w", pady=(6, 0))
+ 
+    # for column 1 to stretch when the window is resized
+    body.columnconfigure(1, weight=1)
+ 
+    # return input variable so the main window can clear all tabs
+    return input_var, result_var, error_var
