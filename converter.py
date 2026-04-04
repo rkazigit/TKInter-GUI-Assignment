@@ -527,3 +527,119 @@ notebook.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
  
 all_tab_vars = []
 
+# Speed tab
+vars_speed = build_standard_tab(
+    notebook,
+    tab_label="⚡ Speed",
+    title_text="Speed Converter",
+    icon_colour="#C0392B",
+    icon_symbol="km",
+    unit_list=list(SPEED_UNITS.keys()),
+    unit_table_or_fn=SPEED_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_speed)
+ 
+# Temperature tab
+vars_temp = build_standard_tab(
+    notebook,
+    tab_label="🌡 Temp",
+    title_text="Temperature Converter",
+    icon_colour="#D35400",
+    icon_symbol="°C",
+    unit_list=TEMPERATURE_UNITS,
+    unit_table_or_fn=None,           # no table needed — uses its own function
+    conversion_type="temperature"
+)
+all_tab_vars.append(vars_temp)
+ 
+# Length tab
+vars_length = build_standard_tab(
+    notebook,
+    tab_label="📏 Length",
+    title_text="Length Converter",
+    icon_colour="#1A7A4A",
+    icon_symbol="m",
+    unit_list=list(LENGTH_UNITS.keys()),
+    unit_table_or_fn=LENGTH_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_length)
+ 
+# Weight / Mass tab
+vars_mass = build_standard_tab(
+    notebook,
+    tab_label="⚖ Weight",
+    title_text="Weight / Mass Converter",
+    icon_colour="#1A5276",
+    icon_symbol="kg",
+    unit_list=list(MASS_UNITS.keys()),
+    unit_table_or_fn=MASS_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_mass)
+ 
+# Volume tab
+vars_volume = build_standard_tab(
+    notebook,
+    tab_label="🧪 Volume",
+    title_text="Volume Converter",
+    icon_colour="#6C3483",
+    icon_symbol="L",
+    unit_list=list(VOLUME_UNITS.keys()),
+    unit_table_or_fn=VOLUME_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_volume)
+ 
+# Area tab
+vars_area = build_standard_tab(
+    notebook,
+    tab_label="▦ Area",
+    title_text="Area Converter",
+    icon_colour="#0E6655",
+    icon_symbol="m²",
+    unit_list=list(AREA_UNITS.keys()),
+    unit_table_or_fn=AREA_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_area)
+ 
+# Fuel Economy tab
+vars_fuel = build_standard_tab(
+    notebook,
+    tab_label="⛽ Fuel",
+    title_text="Fuel Economy Converter",
+    icon_colour="#B7770D",
+    icon_symbol="mpg",
+    unit_list=FUEL_UNITS,
+    unit_table_or_fn=None,
+    conversion_type="fuel"
+)
+all_tab_vars.append(vars_fuel)
+ 
+# Angle tab
+vars_angle = build_standard_tab(
+    notebook,
+    tab_label="∠ Angle",
+    title_text="Angle Converter",
+    icon_colour="#922B21",
+    icon_symbol="°",
+    unit_list=ANGLE_UNITS,
+    unit_table_or_fn=None,
+    conversion_type="angle"
+)
+all_tab_vars.append(vars_angle)
+ 
+# Force tab
+vars_force = build_standard_tab(
+    notebook,
+    tab_label="↗ Force",
+    title_text="Force Converter",
+    icon_colour="#424949",
+    icon_symbol="N",
+    unit_list=list(FORCE_UNITS.keys()),
+    unit_table_or_fn=FORCE_UNITS,
+    conversion_type="linear"
+)
+all_tab_vars.append(vars_force)
