@@ -522,3 +522,8 @@ add_hover_effect(clear_btn, "#E74C3C", "#C0392B")
 notebook = ttk.Notebook(root)
 notebook.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
 
+# build_standard_tab() returns (input_var, result_var, error_var) for each tab
+# storing them in a list so the "Clear All" button can reset all of it
+ 
+all_tab_vars = []
+
