@@ -263,4 +263,16 @@ def add_hover_effect(button, normal_colour, hover_colour):
     button.bind("<Enter>", lambda event: button.config(bg=hover_colour))
     button.bind("<Leave>", lambda event: button.config(bg=normal_colour))
 
-    
+# Colours used throughout the app
+COLOUR_DARK       = "#1C2833"   # dark navy — used for title bars
+COLOUR_BG         = "#F2F3F4"   # light grey — main background
+COLOUR_RESULT_BG  = "#212F3D"   # dark blue — result panel background
+COLOUR_BTN_GREEN  = "#1E8449"   # green — Convert button
+COLOUR_BTN_BLUE   = "#1F618D"   # blue — Swap button
+COLOUR_ERROR      = "#C0392B"   # red — error messages
+COLOUR_RESULT_TXT = "#27AE60"   # bright green — result text
+COLOUR_LIGHT_TXT  = "#EAECEE"   # near-white — text on dark backgrounds
+FONT_TITLE        = ("Segoe UI", 13, "bold")
+FONT_LABEL        = ("Segoe UI", 10, "bold")
+FONT_NORMAL       = ("Segoe UI", 10)
+FONT_RESULT       = ("Consolas", 20, "bold")    
