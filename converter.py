@@ -462,3 +462,11 @@ def build_standard_tab(notebook, tab_label, title_text,
  
     # return input variable so the main window can clear all tabs
     return input_var, result_var, error_var
+
+#main window setup
+
+root = tk.Tk()
+root.title("Universal Unit Converter")
+root.geometry("600x680")
+root.minsize(500, 560)
+root.configure(bg="#D5D8DC")
