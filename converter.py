@@ -113,7 +113,7 @@ def convert_temperature(value, from_unit, to_unit):
  
     return result
  
- 
+ #minor AI assistance for fuel conversion as I didn't know how it would work at the start
 def convert_fuel(value, from_unit, to_unit):
 
     US_FACTOR = 235.215   # 235.215 ÷ mpg(US) = L/100km
@@ -183,7 +183,7 @@ def format_result(number, decimal_places):
     # or just use regular decimal notation with commas
     return f"{number:,.{decimal_places}f}"      # 1,234.5678
 
-def make_icon(bg_colour, symbol_text):
+def make_icon(bg_colour, symbol_text): #some AI assistance for pillow library
     if not PILLOW_AVAILABLE:
         return None
  
@@ -223,7 +223,7 @@ def make_icon(bg_colour, symbol_text):
  
     return ImageTk.PhotoImage(img)
  
- 
+ #AI assistance, lambda functions for hover effects on buttons
 def add_hover_effect(button, normal_colour, hover_colour):
     button.bind("<Enter>", lambda event: button.config(bg=hover_colour))
     button.bind("<Leave>", lambda event: button.config(bg=normal_colour))
@@ -424,7 +424,7 @@ def build_standard_tab(notebook, tab_label, title_text,
     # return input variable so the main window can clear all tabs
     return input_var, result_var, error_var
 
-#main window setup
+#main window setup, had AI explain ttk config and notebooks to me
 
 root = tk.Tk()
 root.title("Universal Unit Converter")
@@ -432,8 +432,8 @@ root.geometry("600x680")
 root.minsize(500, 560)
 root.configure(bg="#D5D8DC")
 precision_var = tk.IntVar(value=4)
-style = ttk.Style()
-style.theme_use("clam") #clam is just for more colors
+style = ttk.Style() 
+style.theme_use("clam") #clam is for more colors
 style.configure("TNotebook",
                 background=COLOUR_DARK)
 style.configure("TNotebook.Tab",
@@ -453,7 +453,7 @@ tk.Label(toolbar, text="Decimal places:",
          font=("Segoe UI", 9), bg="#ECF0F1",
          fg="#2C3E50").pack(side=tk.LEFT, padx=(14, 4))
 
-#i wanted a nice spinbox
+#spinbox
 precision_spinbox = ttk.Spinbox(toolbar, from_=0, to=10, width=4,
                                  textvariable=precision_var,
                                  font=("Segoe UI", 10))
