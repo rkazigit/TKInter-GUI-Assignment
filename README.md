@@ -40,7 +40,6 @@ Press the ▶ Run button at the top right of VS Code and the converter window wi
 | Feature | How to use it |
 |---|---|
 | 9 unit categories | Click the tabs at the top |
-| Live conversion | Just start typing, the result updates instantly |
 | Swap units | Click the ⇅ Swap button |
 | Change precision | Use the "Decimal places" spinner in the toolbar or click Settings → Decimal Precision |
 | Clear everything | Click 🗑 Clear All or press Ctrl+L |
