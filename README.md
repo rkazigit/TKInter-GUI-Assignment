@@ -29,6 +29,20 @@ pip install Pillow
 Wait for it to finish. This installs the library that draws the coloured icons.
 If `pip` doesn't work, try:
 ```
+
+## Some Features
+ 
+| Feature | How to use it |
+|---|---|
+| 9 unit categories | Click the tabs at the top |
+| Live conversion | Just start typing — result updates instantly |
+| Swap units | Click the ⇅ Swap button |
+| Change precision | Use the "Decimal places" spinner in the toolbar |
+| Conversion history | Each tab shows your last 5 conversions |
+| Clear everything | Click 🗑 Clear All or press Ctrl+L |
+| Coloured icons | Automatically shown if Pillow is installed |
+| Error messages | Type "abc" to see an example |
+| Help instructions | Click Help → How to Use |
 pip3 install Pillow
 ```
  
