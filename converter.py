@@ -251,7 +251,7 @@ def make_icon(bg_colour, symbol_text):
     except Exception:
         pass  # if anything goes wrong with text, just skip it
  
-    return ImageTk.PhotoImage(img)
+    return ImageTK.PhotoImage(img)
  
  
 def add_hover_effect(button, normal_colour, hover_colour):
