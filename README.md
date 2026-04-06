@@ -35,7 +35,7 @@ pip3 install Pillow
 ### Step 4: Run the app
 Press the ▶ Run button at the top right of VS Code and the converter window will open on your screen.
 
-## Some features to test
+## Some features/functionality
  
 | Feature | How to use it |
 |---|---|
