@@ -617,7 +617,7 @@ file_menu.add_command(label="Exit  (Ctrl+Q)",
                        command=root.quit)
 menubar.add_cascade(label="File", menu=file_menu)
  
-# keyboard shortcuts
+# keyboard shortcuts, minor AI assistance
 root.bind("<Control-l>", lambda event: clear_all_tabs())
 root.bind("<Control-q>", lambda event: root.quit())
  
@@ -714,5 +714,4 @@ def on_tab_change(event):
  
 notebook.bind("<<NotebookTabChanged>>", on_tab_change)
  
-# now to actually start the program
 root.mainloop()
