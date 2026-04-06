@@ -39,11 +39,32 @@ Press the ▶ Run button at the top right of VS Code and the converter window wi
  
 | Feature | How to use it |
 |---|---|
-| 9 unit categories | Click the tabs at the top |
-| Swap units | Click the ⇅ Swap button |
-| Live conversion | Just start typing, the result updates instantly |
-| Change precision | Use the "Decimal places" spinner in the toolbar or click Settings → Decimal Precision |
-| Clear everything | Click 🗑 Clear All or press Ctrl+L |
-| Coloured icons | Automatically shown if Pillow is installed |
-| Error messages | Type "abc" to see an example |
-| Help instructions | Click Help → How to Use |
+1. **9 category tabs** — click each tab (Speed, Temperature, Length, Weight, Volume, Area, Fuel Economy, Angle, Force) and confirm each one opens a different converter.
+ 
+2. **Live conversion** — type a number digit by digit and watch the result update after every keystroke without pressing anything.
+ 
+3. **Combobox dropdowns** — change either the From or To dropdown while a number is typed → result updates immediately.
+ 
+4. **⇅ Swap button** — click Swap to reverse the units and recalculate (e.g. km/h → mph becomes mph → km/h).
+ 
+5. **Decimal places spinner** — click the up/down arrows in the toolbar to change precision (0–10 decimal places); result updates instantly.
+ 
+6. **Error: non-numeric input** — type `hello` → red error message appears. Delete it and type a number → error disappears.
+ 
+7. **Error: empty input** — clear the value box → result quietly resets to "—" with no error shown.
+ 
+8. **Error: fuel economy zero** — Fuel tab, set From to `mpg (US)`, type `0` → specific red error about mpg being greater than 0.
+ 
+9. **Error: temperature below absolute zero** — Temp tab, convert `-300 °C → K` → red error about absolute zero.
+ 
+10. **Conversion history** — do 3 conversions on one tab → all 3 appear in the history panel, newest first. Do 6 → only the last 5 are kept.
+ 
+11. **Clear All** — click 🗑 Clear All in the toolbar (or press Ctrl+L) → every tab's input and result resets at once.
+ 
+12. **Hover effects** — hover over the Convert, Swap, and Clear All buttons → each one changes colour. Move away → returns to normal.
+ 
+13. **Tab icons** — each tab header shows a different coloured icon (requires Pillow to be installed).
+ 
+14. **Help → How to Use** — click Help in the menu bar → How to Use → popup opens with instructions, closes with the Close button.
+ 
+15. **Settings → Decimal Precision** — same precision control as the toolbar spinner, but accessible through the menu bar.
