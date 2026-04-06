@@ -85,24 +85,12 @@ FUEL_UNITS = ["L/100km", "mpg (US)", "mpg (UK)", "km/L"]
 ANGLE_UNITS = ["degrees", "radians", "gradians", "turns"]
 
 def convert_linear(value, from_unit, to_unit, unit_table):
-    """
-    Converts between any two units that are in the same factor table.
-    Works for speed, length, mass, volume, area, force.
- 
-    Formula:  result = value × factor_from ÷ factor_to
-    """
     base_value = value * unit_table[from_unit]   # convert to base unit first
     result     = base_value / unit_table[to_unit] # then convert to target unit
     return result
  
  
 def convert_temperature(value, from_unit, to_unit):
-    """
-    Temperature needs special handling because it uses addition/subtraction,
-    not just multiplication.
-    Strategy: first convert anything to Celsius, then convert Celsius to the target.
-    """
- 
     # convert TO Celsius
     if from_unit == "°C (Celsius)":
         celsius = value
@@ -127,11 +115,7 @@ def convert_temperature(value, from_unit, to_unit):
  
  
 def convert_fuel(value, from_unit, to_unit):
-    """
-    Fuel economy is tricky because L/100km and mpg are INVERSELY related.
-    (Lower L/100km means MORE efficient; Higher mpg means MORE efficient.)
-    Strategy: convert everything to L/100km first, then to the target.
-    """
+
     US_FACTOR = 235.215   # 235.215 ÷ mpg(US) = L/100km
     UK_FACTOR = 282.481   # 282.481 ÷ mpg(UK) = L/100km
  
@@ -169,11 +153,7 @@ def convert_fuel(value, from_unit, to_unit):
  
  
 def convert_angle(value, from_unit, to_unit):
-    """
-    Angle conversion — uses degrees as the go-between.
-    400 gradians = 360 degrees = 2π radians = 1 full turn
-    """
- 
+
     # to degrees
     if from_unit == "degrees":
         deg = value
@@ -196,24 +176,14 @@ def convert_angle(value, from_unit, to_unit):
  
  
 def format_result(number, decimal_places):
-    """
-    Turns a float into a nicely formatted string.
-    Uses scientific notation for very big or very tiny numbers.
-    """
     abs_val = abs(number)
- 
     # Use scientific notation if the number is huge or tiny
     if abs_val != 0 and (abs_val >= 1e12 or abs_val < 0.000001):
         return f"{number:.{decimal_places}e}"   # now this will print things like 1.23e+12 or 4.56e-7
- 
     # or just use regular decimal notation with commas
     return f"{number:,.{decimal_places}f}"      # 1,234.5678
 
 def make_icon(bg_colour, symbol_text):
-    """
-    Creates a small 44×44 coloured square icon using Pillow.
-    If Pillow isn't installed, returns None (no icon shown).
-    """
     if not PILLOW_AVAILABLE:
         return None
  
@@ -255,12 +225,6 @@ def make_icon(bg_colour, symbol_text):
  
  
 def add_hover_effect(button, normal_colour, hover_colour):
-    """
-    Makes a button change colour when the mouse moves over it.
-    We bind two mouse events:
-      <Enter> = mouse enters the button area  → change to hover colour
-      <Leave> = mouse leaves the button area  → change back to normal
-    """
     button.bind("<Enter>", lambda event: button.config(bg=hover_colour))
     button.bind("<Leave>", lambda event: button.config(bg=normal_colour))
 
@@ -279,10 +243,6 @@ FONT_NORMAL       = ("Segoe UI", 10)
 FONT_RESULT       = ("Consolas", 20, "bold")    
 
 def build_tab_frame(notebook, tab_label, title_text, icon_colour, icon_symbol):
-    """
-    Creates the outer frame and title bar that every tab shares.
-    Returns (frame, body_frame) so the caller can add more widgets.
-    """
     frame = ttk.Frame(notebook)             # the container for this whole tab
     notebook.add(frame, text=tab_label)     # register it as a tab
  
@@ -325,26 +285,26 @@ def build_standard_tab(notebook, tab_label, title_text,
  
     # run the conversion and update the display
     def do_convert(*args):
-        """Called whenever the user types, changes a dropdown, or clicks Convert."""
+        #runs when the user types, changes a dropdown, or clicks convert
         raw_input = input_var.get().strip()
  
-        # Case 1: input box is empty — just reset quietly
+        # input box is empty so just reset quietly
         if raw_input == "":
             result_var.set("—")
             result_label.config(fg=COLOUR_RESULT_TXT)
             error_var.set("")
             return
  
-        # Case 2: input is not a number — show a friendly error
+        # input is not a number so show a friendly error
         try:
             value = float(raw_input)
         except ValueError:
-            error_var.set("⚠  Please enter a number  (e.g. 42, -7.5, 3.14)")
+            error_var.set("⚠  Please enter a number  (e.g. 42, -7.5, 3.14)") #nice lil symbol
             result_var.set("—")
             result_label.config(fg=COLOUR_ERROR)
             return
  
-        # Case 3: run the conversion
+        # run the conversion
         try:
             if conversion_type == "linear":
                 result = convert_linear(value, from_unit_var.get(),
@@ -366,7 +326,7 @@ def build_standard_tab(notebook, tab_label, title_text,
             result_label.config(fg=COLOUR_ERROR)
             return
  
-        # Conversion succeeded — format and display the result
+        # conversion was a success so format and display the result
         error_var.set("")    # clear any old error message
         decimals = precision_var.get()
         formatted = format_result(result, decimals)
@@ -493,7 +453,7 @@ tk.Label(toolbar, text="Decimal places:",
          font=("Segoe UI", 9), bg="#ECF0F1",
          fg="#2C3E50").pack(side=tk.LEFT, padx=(14, 4))
 
-#i wanted a spinbox
+#i wanted a nice spinbox
 precision_spinbox = ttk.Spinbox(toolbar, from_=0, to=10, width=4,
                                  textvariable=precision_var,
                                  font=("Segoe UI", 10))
@@ -505,7 +465,6 @@ tk.Frame(toolbar, width=1, bg="#BDC3C7").pack(
  
 # clear all button
 def clear_all_tabs():
-    """Resets every tab's input and result back to blank."""
     for input_v, result_v, error_v in all_tab_vars:
         input_v.set("")
         result_v.set("—")
@@ -676,7 +635,6 @@ menubar.add_cascade(label="Settings", menu=settings_menu)
 help_menu = tk.Menu(menubar, tearoff=False)
  
 def show_help():
-    """Opens a popup window with instructions."""
     win = tk.Toplevel(root)
     win.title("How to Use")
     win.geometry("420x380")
@@ -689,16 +647,16 @@ def show_help():
  
     help_text = (
         "1.  Click a tab at the top (Speed, Temp, Length…)\n\n"
-        "2.  Choose the unit you're converting FROM\n"
+        "2.  Choose the unit you want to convert FROM\n"
         "    using the first dropdown menu.\n\n"
         "3.  Type your number in the Value box.\n"
         "    The result updates automatically as you type!\n\n"
-        "4.  Choose the unit you're converting TO\n"
+        "4.  Choose the unit you want to convert TO\n"
         "    using the second dropdown.\n\n"
         "5.  Click Swap to reverse the direction.\n\n"
         "TOOLBAR:\n"
-        "  • Decimal places — controls how many decimals to show.\n"
-        "  • 🗑 Clear All   — resets every tab at once.\n\n"
+        "  • Decimal places controls how many decimals to show.\n"
+        "  • 🗑 Clear All resets every tab at once.\n\n"
         "KEYBOARD:\n"
         "  • Enter   — trigger conversion.\n"
         "  • Ctrl+L  — clear all tabs.\n"
@@ -718,7 +676,6 @@ def show_help():
                cursor="hand2").pack(pady=10)
  
 def show_about():
-    """Opens a simple About popup."""
     import tkinter.messagebox as mb
     mb.showinfo(
         "About",
