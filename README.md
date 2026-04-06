@@ -1,6 +1,6 @@
 # TKInter-GUI-Assignment
 This is my TKinter GUI Assignment. I built a Unit Converter.
- 
+
 ⚠️ 
 Please note that this app uses Tkinter and must be run **locally** on your computer/IDE.
 GitHub Codespaces and other web-based IDEs do **not** support graphical windows (I learned that the hard way).
@@ -9,9 +9,13 @@ GitHub Codespaces and other web-based IDEs do **not** support graphical windows 
 How to Run
 Step 1 — Download the files
 -Go to the GitHub repository page
+
 -Click the green Code button.
+
 -Click Download ZIP
+
 -Find the downloaded ZIP file (usually in your Downloads folder)
+
 -Right-click it and select Extract All
 
 Step 2 — Open it in VS Code
