@@ -13,7 +13,7 @@ GitHub Codespaces and other web-based IDEs do **not** support graphical windows 
 - Click the green **Code** button
 - Click **Download ZIP**
 - Find the downloaded ZIP file (usually in your Downloads folder)
-- Right-click it and select **Extract All** (Windows) or double-click (Mac)
+- Right-click it and select **Extract All** 
  
 ### Step 2: Open in VS Code
 - Open VS Code
