@@ -9,48 +9,49 @@ GitHub Codespaces and other web-based IDEs do **not** support graphical windows 
 How to Run
 Step 1 — Download the files
 
-Go to the GitHub repository page
-Click the green Code button.
+-Go to the GitHub repository page
 
+-Click the green Code button.
 
-Click Download ZIP
+-Click Download ZIP
 
 
 Find the downloaded ZIP file (usually in your Downloads folder)
 
 
-Right-click it and select Extract All
+-Right-click it and select Extract All
 
-Step 2 — Open it in VS Code
+-Step 2 — Open it in VS Code
 
-Open VS Code
-
-
-Click File → Open Folder
+-Open VS Code
 
 
-Select the extracted folder
+-Click File → Open Folder
 
 
-You should see converter.py in the file explorer on the left
+-Select the extracted folder
+
+
+-You should see converter.py in the file explorer on the left
 
 Step 3 — Install Pillow (one time only)
-Open the VS Code terminal (View → Terminal) and type:
+
+-Open the VS Code terminal (View → Terminal) and type:
 
 
-pip install Pillow
-Wait for it to finish. This installs the library that draws the coloured icons.
+-pip install Pillow
+-Wait for it to finish. This installs the library that draws the coloured icons.
 
 
-If pip doesn't work, try:
+-If pip doesn't work, try:
 
 
-pip3 install Pillow
+-pip3 install Pillow
 
 Step 4 — Run the app
 
 
-Press the ▶ Run button at the top right of VS Code.
+-Press the ▶ Run button at the top right of VS Code.
 
 
-The converter window will open on your screen.
+-The converter window will open on your screen.
