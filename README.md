@@ -1,1 +1,33 @@
 # TKInter-GUI-Assignment
+Unit Converter
+How to Run (Step by Step)
+
+⚠️ This app uses Tkinter and must be run locally on your computer.
+GitHub Codespaces and other web-based IDEs do not support graphical windows.
+
+Step 1 — Download the files
+
+Go to the GitHub repository page
+Click the green Code button
+Click Download ZIP
+Find the downloaded ZIP file (usually in your Downloads folder)
+Right-click it and select Extract All (Windows) or double-click (Mac)
+
+Step 2 — Open in VS Code
+
+Open VS Code
+Click File → Open Folder
+Select the extracted folder
+You should see converter.py in the file explorer on the left
+
+Step 3 — Install Pillow (one time only)
+Open the VS Code terminal (View → Terminal) and type:
+pip install Pillow
+Wait for it to finish. This installs the library that draws the coloured icons.
+If pip doesn't work, try:
+pip3 install Pillow
+Step 4 — Run the app
+In the VS Code terminal, type:
+python converter.py
+Or press the ▶ Run button at the top right of VS Code.
+The converter window will open on your screen.
