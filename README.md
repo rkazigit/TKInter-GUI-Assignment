@@ -40,9 +40,9 @@ Press the ▶ Run button at the top right of VS Code and the converter window wi
 | Feature | How to use it |
 |---|---|
 | 9 unit categories | Click the tabs at the top |
-| Live conversion | Just start typing — result updates instantly |
+| Live conversion | Just start typing, the result updates instantly |
 | Swap units | Click the ⇅ Swap button |
-| Change precision | Use the "Decimal places" spinner in the toolbar |
+| Change precision | Use the "Decimal places" spinner in the toolbar or click Settings → Decimal Precision |
 | Conversion history | Each tab shows your last 5 conversions |
 | Clear everything | Click 🗑 Clear All or press Ctrl+L |
 | Coloured icons | Automatically shown if Pillow is installed |
