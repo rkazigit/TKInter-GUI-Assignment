@@ -4,7 +4,7 @@ import math
 
 #pillow for icon generation
 try:
-    from PIL import Image, ImageDraw, ImageTK
+    from PIL import Image, ImageDraw, ImageTk
     PILLOW_AVAILABLE = True
 except ImportError:
     PILLOW_AVAILABLE = False
@@ -251,7 +251,7 @@ def make_icon(bg_colour, symbol_text):
     except Exception:
         pass  # if anything goes wrong with text, just skip it
  
-    return ImageTK.PhotoImage(img)
+    return ImageTk.PhotoImage(img)
  
  
 def add_hover_effect(button, normal_colour, hover_colour):
