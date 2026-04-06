@@ -31,9 +31,11 @@ If `pip` doesn't work, try:
 ```
 pip3 install Pillow
 ```
+ 
+### Step 4: Run the app
+Press the ▶ Run button at the top right of VS Code and the converter window will open on your screen.
 
-
-## Some Features
+## Some features to test
  
 | Feature | How to use it |
 |---|---|
@@ -46,6 +48,3 @@ pip3 install Pillow
 | Coloured icons | Automatically shown if Pillow is installed |
 | Error messages | Type "abc" to see an example |
 | Help instructions | Click Help → How to Use |
- 
-### Step 4: Run the app
-Press the ▶ Run button at the top right of VS Code and the converter window will open on your screen.
