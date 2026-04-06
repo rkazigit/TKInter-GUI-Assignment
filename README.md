@@ -38,8 +38,6 @@ Press the ▶ Run button at the top right of VS Code and the converter window wi
 ## Some features/functionality
  
 | Feature | How to use it |
-|---|---|
-| Feature | How to use it |
 | :--- | :--- |
 | 1. **9 category tabs** | click each tab (Speed, Temperature, Length, Weight, Volume, Area, Fuel Economy, Angle, Force) and confirm each one opens a different converter. |
 | 2. **Live conversion** | type a number digit by digit and watch the result update after every keystroke without pressing anything. |
